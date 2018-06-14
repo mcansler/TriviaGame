@@ -5,7 +5,8 @@ $(document).ready(function() {
     var quizContainer = $('#quiz');
     var correct = 0;
     var wrong = 0;
-    var timeCount = 30;
+    var unanswered = 0;
+    var timeCount = 31;
     var intervalId;
     
     function run() {
@@ -20,7 +21,7 @@ $(document).ready(function() {
       timeCount--;
 
       //  Show the number in the #timer tag.
-      $("#timer").html("<h2>" + timeCount + "</h2>");
+      $("#timer").html("<h2>Time Remaining: " + timeCount + " Seconds</h2>");
 
 
       //  Once number hits zero...
@@ -30,7 +31,13 @@ $(document).ready(function() {
         stop();
 
         //  Alert the user that time is up.
-        alert("Time Up!");
+        $("#question").hide();
+        $("#results").show();
+        $("#results").html("<h1>Out Of Time!!!</h1>");
+        $("#results").append("<p>The correct answer is " + showQuestion.correctAnswer + ".");
+        unanswered++;
+        i++;
+        setTimeout(renderQuestion, 2000);
       }
     }
 
@@ -40,6 +47,7 @@ $(document).ready(function() {
       //  Clears our intervalId
       //  We just pass the name of the interval
       //  to the clearInterval function.
+      timeCount = 31;
       clearInterval(intervalId);
     }
 
@@ -160,8 +168,8 @@ $(document).ready(function() {
           showQuestion = myQuestions[i];  
           //console.log(questionSelection);
           //countdownTimer.reset();
-      if (i <= myQuestions.length){    
-          //run();
+      if (i < myQuestions.length){    
+          run();
           $("#results").hide();
           $("#question").show();
           $("#question").html("<h2>" + showQuestion.question + "</h2>");
@@ -177,7 +185,13 @@ $(document).ready(function() {
         else {
 
           stop();
-          alert("Game Over");
+          $("#question").hide();
+          $("#results").show();
+          $("#results").html("<h1>All done, here's how you did!</h1>");
+          $("#results").append("<p>Correct Answers: " + correct + "</p>");
+          $("#results").append("<p>Incorrect Answers: " + wrong + "</p>");
+          $("#results").append("<p>Unanswered: " + unanswered + "</p>");
+
         }
     }
     renderQuestion();
@@ -187,23 +201,23 @@ $(document).ready(function() {
       $("p").on('click', function() {
         var name = $(this).text();
         if (name === showQuestion.correctAnswer){
+            stop();
             $("#question").hide();
             $("#results").show();
             $("#results").html("<h1>Correct!!!</h1>");
-            //stop();                        
-            //correct++;
-            //i++;
-            //setTimeout(renderQuestion, 2000);
+            correct++;
+            i++;
+            setTimeout(renderQuestion, 2000);
         }
           else {
+            stop();
             $("#question").hide();
             $("#results").show();
             $("#results").html("<h1>Wrong!!!</h1>");
-            $("#results").append("<p>The correct answer is " + showQuestion.correctAnswer + ".");
-            //stop();
-            //wrong++;
-            //i++;
-            //setTimeout(renderQuestion, 2000);
+            $("#results").append("<p>The correct answer is " + showQuestion.correctAnswer + ".</p>");
+            wrong++;
+            i++;
+            setTimeout(renderQuestion, 2000);
 
           }
       });
