@@ -3,7 +3,6 @@ $(document).ready(function() {
 
 
     var quizContainer = $('#quiz');
-    var resultsContainer = $('#results');
     var correct = 0;
     var wrong = 0;
     var timeCount = 30;
@@ -20,7 +19,7 @@ $(document).ready(function() {
       //  Decrease number by one.
       timeCount--;
 
-      //  Show the number in the #show-number tag.
+      //  Show the number in the #timer tag.
       $("#timer").html("<h2>" + timeCount + "</h2>");
 
 
@@ -45,7 +44,7 @@ $(document).ready(function() {
     }
 
     //  Execute the run function.
-    run();
+    //run();
 
 
     var myQuestions = [
@@ -161,6 +160,10 @@ $(document).ready(function() {
           showQuestion = myQuestions[i];  
           //console.log(questionSelection);
           //countdownTimer.reset();
+      if (i <= myQuestions.length){    
+          //run();
+          $("#results").hide();
+          $("#question").show();
           $("#question").html("<h2>" + showQuestion.question + "</h2>");
           $("#question").append("<p>" + showQuestion.answers.a + "</p>");
           $("#question").append("<p>" + showQuestion.answers.b + "</p>");
@@ -170,7 +173,12 @@ $(document).ready(function() {
           console.log(showQuestion.question);
           console.log(i);
           getAnswer();
-        //}
+      }
+        else {
+
+          stop();
+          alert("Game Over");
+        }
     }
     renderQuestion();
 
@@ -179,11 +187,32 @@ $(document).ready(function() {
       $("p").on('click', function() {
         var name = $(this).text();
         if (name === showQuestion.correctAnswer){
-            alert("Correct");
-            i++;
-            renderQuestion();
+            $("#question").hide();
+            $("#results").show();
+            $("#results").html("<h1>Correct!!!</h1>");
+            //stop();                        
+            //correct++;
+            //i++;
+            //setTimeout(renderQuestion, 2000);
         }
+          else {
+            $("#question").hide();
+            $("#results").show();
+            $("#results").html("<h1>Wrong!!!</h1>");
+            $("#results").append("<p>The correct answer is " + showQuestion.correctAnswer + ".");
+            //stop();
+            //wrong++;
+            //i++;
+            //setTimeout(renderQuestion, 2000);
+
+          }
       });
+    }
+
+    function checkAnswer(){
+
+
+
     }
 
 
