@@ -34,7 +34,7 @@ $(document).ready(function() {
         $("#question").hide();
         $("#results").show();
         $("#results").html("<h1>Out Of Time!!!</h1>");
-        $("#results").append("<p>The correct answer is " + showQuestion.correctAnswer + ".");
+        $("#results").append("<p>The correct answer is " + showQuestion.correctAnswer + ".</p>");
         unanswered++;
         i++;
         setTimeout(renderQuestion, 2000);
@@ -162,24 +162,48 @@ $(document).ready(function() {
     //quizQues = myQuestions[0];
 
     //console.log(quizQues.question);
+    function setup() {
+        i = 0;
+        $("#results").hide();
+        $("#question").show();
+        $('#question').append('<button id="startButton">Start</button>');
+        $('#startButton').on('click', function() {
+        $(this).hide();
+          renderQuestion();
+      });
+    }	
+    
+    function reset(){
+
+        i = 0;
+        correct = 0;
+        wrong = 0;
+        unanswered = 0;
+        timeCount = 31;
+        intervalId;
+        renderQuestion();
+
+
+    }
+    
+    
     function renderQuestion(){
 
-      //for(var i = 0; i < myQuestions.length; i++){
-          showQuestion = myQuestions[i];  
-          //console.log(questionSelection);
-          //countdownTimer.reset();
+      showQuestion = myQuestions[i];  
+          
+          
       if (i < myQuestions.length){    
           run();
           $("#results").hide();
           $("#question").show();
           $("#question").html("<h2>" + showQuestion.question + "</h2>");
-          $("#question").append("<p>" + showQuestion.answers.a + "</p>");
-          $("#question").append("<p>" + showQuestion.answers.b + "</p>");
-          $("#question").append("<p>" + showQuestion.answers.c + "</p>");
-          $("#question").append("<p>" + showQuestion.answers.d + "</p>");
+          $("#question").append("<p class='select'>" + showQuestion.answers.a + "</p>");
+          $("#question").append("<p class='select'>" + showQuestion.answers.b + "</p>");
+          $("#question").append("<p class='select'>" + showQuestion.answers.c + "</p>");
+          $("#question").append("<p class='select'>" + showQuestion.answers.d + "</p>");
 
-          console.log(showQuestion.question);
-          console.log(i);
+          //console.log(showQuestion.question);
+          //console.log(i);
           getAnswer();
       }
         else {
@@ -191,10 +215,15 @@ $(document).ready(function() {
           $("#results").append("<p>Correct Answers: " + correct + "</p>");
           $("#results").append("<p>Incorrect Answers: " + wrong + "</p>");
           $("#results").append("<p>Unanswered: " + unanswered + "</p>");
+          $('#results').append('<button id="restartButton">Start Over?</button>');
+          $('#restartButton').on('click', function() {
+              $(this).hide();
+                  reset();
+      });
 
         }
     }
-    renderQuestion();
+    setup();
 
     function getAnswer(){
 
@@ -223,15 +252,6 @@ $(document).ready(function() {
       });
     }
 
-    function checkAnswer(){
-
-
-
-    }
-
-
-
-
-
+    
 });
 

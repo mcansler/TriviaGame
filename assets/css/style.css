@@ -1,0 +1,80 @@
+.container {
+
+    background-image: url(../images/space.jpg);
+    background-size: cover;
+	background-repeat: no-repeat;
+    height: 850px;
+    padding-top: 10%;
+}
+
+header{
+    font-size: 60px;
+    text-align: center;
+    padding-top: 20px;
+    color: blue;
+}
+
+p {
+
+    font-size: 40px;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.select:hover { 
+    background-color: orange;
+    cursor: pointer;
+    width: 600px;
+    border: 2px solid blue;
+}
+
+h1 {
+
+    font-size: 60px;
+    text-align: center;
+    margin: 30px auto;
+}
+
+
+
+h2 {
+
+    font-size: 30px;
+    text-align: center;
+    margin: 30px auto;
+
+}
+
+/* #timer {
+
+    height: 100px;
+} */
+
+#quiz {
+    width: 900px;
+    height: 600px;
+    background-color: yellow;
+    margin: 0 auto;
+}
+
+#startButton {
+
+    text-align: center;
+    margin: 0 auto;
+    width: 400px;
+    height: 50px;
+    margin: 25% 30% 20% 30%;
+    font-size: 40px;
+    border: 2px solid blue;
+}
+
+#restartButton {
+
+    text-align: center;
+    margin: 0 auto;
+    width: 400px;
+    height: 50px;
+    margin: 10% 30% 0% 30%;
+    font-size: 40px;
+    border: 2px solid blue;
+}
